@@ -24,4 +24,3 @@ subjects = ['math', 'biology', 'geography']
 new_subjects = ", ".join(subjects)
 my_text = f"Students {new_students} study these subjects: {new_subjects}"
 print(my_text)
-
