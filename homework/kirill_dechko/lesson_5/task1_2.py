@@ -4,18 +4,30 @@ name, last_name, city, phone, country = person
 # print(name, last_name, city, phone, country)
 
 # Задание 2
+'''
+Можно решать для каждой переменной отдельно:
+ind2 = int(result_1.index(":") + 1)
+result_1_11 = int(result_1[ind2:])
+result_1_11 += 10
+print(result_1_11)
+но проще создать функцию
+'''
 result_1 = "результат операции: 42"
 result_2 = "результат операции: 514"
 result_3 = "результат работы программы: 9"
-result_1_1 = int(result_1[-2:])
-result_1_1 += 10
-print(result_1_1)
-result_1_2 = int(result_2[-3:])
-result_1_2 += 10
-print(result_1_2)
-result_1_3 = int(result_3[-1:])
-result_1_3 += 10
-print(result_1_3)
+
+
+def find_ind(result):
+    index = int(result.index(":") + 1)
+    index2 = int(result[index:])
+    index2 += 10
+    return index2
+
+
+print(find_ind(result_1))
+print(find_ind(result_2))
+print(find_ind(result_3))
+
 
 # Задание 3
 students = ['Ivanov', 'Petrov', 'Sidorov']
