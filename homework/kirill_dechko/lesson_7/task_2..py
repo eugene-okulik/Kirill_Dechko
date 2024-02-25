@@ -15,4 +15,3 @@ for keys in words:
         value += 1
         my_keys.append(keys)  # В конец списка my_keys добавляем название ключа
     print("".join(my_keys))  # выводим в консоль "списки", каждая строка отдельно
-
