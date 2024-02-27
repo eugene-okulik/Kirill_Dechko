@@ -22,4 +22,3 @@ for c in my_fib(100000):
         found_fib_num.append(c)
         print(found_fib_num[-1])
     count += 1
-

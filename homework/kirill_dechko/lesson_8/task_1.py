@@ -1,6 +1,6 @@
 import random
 """Задание 1
-Напишите программу. Есть две переменные, salary и bonus. Salary - int, bonus - bool. 
+Напишите программу. Есть две переменные, salary и bonus. Salary - int, bonus - bool.
 Спросите у пользователя salary. А bonus пусть назначается рандомом.
 Если bonus - true, то к salary должен быть добавлен рандомный бонус.
 Примеры результатов:
