@@ -16,9 +16,7 @@ def my_fib(x):
 
 
 count = 1
-found_fib_num = []
-for c in my_fib(100000):
+for my_c in my_fib(100000):
     if count + 1 in [5, 200, 1_000, 100_000]:
-        found_fib_num.append(c)
-        print(found_fib_num[-1])
+        print(my_c)
     count += 1
