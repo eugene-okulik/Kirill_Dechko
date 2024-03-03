@@ -52,4 +52,4 @@ def calc(first_fn, second_fn, operation):
         return divs_of_arg
 
 
-calc(first, second, "*")
+calc(first, second,)

@@ -22,14 +22,17 @@ PRICE_LIST = '''тетрадь 50р
 рюкзак 500р'''
 
 price_list = PRICE_LIST.split()  # преобразовываем строку в список элементов
-num_list = []  # создаем пустой список для чисел
-words_list = []  # создаем пустой список для слов
-for word in price_list:  # создаем цикл и которым пройдем по элементам списка
-    if word.endswith("р"):  # если элемент заканчивается на "р"
-        word = word.strip("р")  # вырезать из элемента "р"
-        num_list.append(int(word))  # добавить такой элемент num_list
-    else:
-        words_list.append(word)  # иначе просто добавить слово в words_list
+"""
+Создаем список num_list. Для выделения чисел из созданного списка используем list comperhension
+num_list = ([преобразовать в число(элементы заканчивающиеся на "р" 
+в элементах списка price_list если элемент списка заканчивается на "р"])
+"""
+num_list = ([int(word.strip("р")) for word in price_list if word.endswith("р")])
+"""
+Создаем список words_list. Для выделения слов из созданного списка используем list comperhension
+words_list = (добавить элементы из элементов списка price_list если она не заканчиваются на "р")
+"""
+words_list = [word for word in price_list if not word.endswith("р")]
 
 """
 1. Далее два полученных списка words_list и num_list, соеденяем в один используя функцию zip.
