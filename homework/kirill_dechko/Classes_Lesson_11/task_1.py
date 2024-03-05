@@ -26,11 +26,6 @@ class Book:  # создаем "основной" класс
                          f"matirial: {self.page_material}")
         return book_name
 
-    def own_params(self):
-        # Это неявный метод, который указывает на то что- при его вызове во вложенном классе SchoolBook,
-        # он будет запущен в своем родителе Book
-        pass
-
 
 book_1 = Book("Lord of the rings", "J. R. R. Tolkien", 1000,
               22250, True)
@@ -65,7 +60,7 @@ class SchoolBook(Book):  # создаем класс вложенный в кл�
     if self.flag_whether_the_book_or_not == True
     """
 
-    def own_params(self):
+    def print_ditails(self):
         if self.flag_whether_the_book_or_not:  # аналог if self.flag_whether_the_book_or_not == True
             book_name = (
                 f"Title: {self.title}, author: {self.author}, pages: {self.number_of_pages}, subject: {self.subject}, "
@@ -84,4 +79,5 @@ school_book_2 = SchoolBook("Biology 11", "Hvoin A.G", 223, 33446,
                            True, "Biology", 8, False)
 
 print(Book.print_ditails(book_1), Book.print_ditails(book_2), Book.print_ditails(book_3), Book.print_ditails(book_4),
-      Book.print_ditails(book_5), SchoolBook.own_params(school_book_1), SchoolBook.own_params(school_book_2), sep="\n")
+      Book.print_ditails(book_5), SchoolBook.print_ditails(school_book_1), SchoolBook.print_ditails(school_book_2),
+      sep="\n")
