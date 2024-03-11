@@ -111,45 +111,21 @@ class Bouquet:
     reverse (необязательный) - если True, то сортировка будет в обратном порядке (по убыванию).
     """
 
-    def sort_bucket_color(self):  # сортировка букета по параметру Flovers.color = "цвет"
-        # отбираем все цвета по каждой единице в букете
-        color_list = sorted(flower.color for flower in self.flowers)
-        unic_val = []
-        # Добавляем уникальные значения из prise_list в список unic_val
-        [unic_val.append(Flowers.color) for Flowers.color in color_list if Flowers.color
-         not in unic_val]
-        return unic_val
+    def sort_bucket_color(self):
+        color_list = sorted(self.flowers, key=lambda flower: flower.color)
+        return color_list
 
     def sort_bucket_freshness(self):
-        freshness_list = sorted(self.flowers, key=lambda flower: flower.freshness)  # т.е. для каждого flower
-        # вернуть его flower.freshness
-        flower_names = [flower.name for flower in freshness_list]
-        names = []  # создаем пустой список и добавляем в него уникальные имена, по порядку из flower_names
-        for name in flower_names:
-            if name not in names:
-                names.append(name)
-        return names
+        freshness_list = sorted(self.flowers, key=lambda flower: flower.freshness)
+        return freshness_list
 
     def sort_bucket_height(self):
-        sorted_fl_by_height = sorted(self.flowers, key=lambda flower: flower.height)  # т.е. для каждого flower
-        # вернуть его flower.height
-        flower_names = [flower.name for flower in sorted_fl_by_height]
-        names = []  # создаем пустой список и добавляем в него уникальные имена, по порядку из flower_names
-        for name in flower_names:
-            if name not in names:
-                names.append(name)
-        return names
+        sorted_flowers = sorted(self.flowers, key=lambda flower: flower.height)
+        return sorted_flowers
 
     def sort_bucket_price(self):
-        sorted_flowers = sorted(self.flowers, key=lambda flower: flower.price)  # т.е. для каждого flower
-        # вернуть его flower.price
-        flower_names = [flower.name for flower in sorted_flowers]  # вывести имена отсортированных flower
-        # из sorted_flowers
-        names = []  # создаем пустой список и добавляем в него уникальные имена, по порядку из flower_names
-        for name in flower_names:
-            if name not in names:
-                names.append(name)
-        return names
+        sorted_price = sorted(self.flowers, key=lambda flower: flower.price)
+        return sorted_price
 
         # Поиск по параметрам
 
@@ -188,17 +164,17 @@ print(f"Общая стоимость букета: {total_price}р.")
 avg_bucket_live = my_bouquet.avg_time_bucket()
 print(f"Время увядания букета: {int(avg_bucket_live)}д.")
 
-sort_bucket = my_bouquet.sort_bucket_color()  # вызов сортировки по цвету
-print(f"Сортировка по параметру цвет - {sort_bucket}")
-
-sort_bucket = my_bouquet.sort_bucket_freshness()  # вызов сортировки по свежести
-print(f"Сортировка по параметру свежесть - {sort_bucket}")
-
-sort_bucket = my_bouquet.sort_bucket_height()  # вызов сортировки по длинне стебля
-print(f"Сортировка по параметру длинна стебля - {sort_bucket}")
-
-sort_bucket = my_bouquet.sort_bucket_price()  # вызов сортировки по цене
-print(f"Сортировка по параметру цена - {sort_bucket}")
+"""# sort_bucket = my_bouquet.sort_bucket_color()  # вызов сортировки по цвету
+# print(f"Сортировка по параметру цвет - {sort_bucket}")
+#
+# sort_bucket = my_bouquet.sort_bucket_freshness()  # вызов сортировки по свежести
+# print(f"Сортировка по параметру свежесть - {sort_bucket}")
+#
+# sort_bucket = my_bouquet.sort_bucket_height()  # вызов сортировки по длинне стебля
+# print(f"Сортировка по параметру длинна стебля - {sort_bucket}")
+#
+# sort_bucket = my_bouquet.sort_bucket_price()  # вызов сортировки по цене
+# print(f"Сортировка по параметру цена - {sort_bucket}")"""
 
 search_flower = my_bouquet.search_flower_by_param2(25)  # поиск по параметру
 print(f"Найден цветок - {search_flower}")
