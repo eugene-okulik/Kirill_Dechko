@@ -13,6 +13,10 @@ class Flowers:
         self.price = price
         self.name = name
         self.val_fl = val_fl
+        self.freshness_level()
+        self.height_category()
+        self.longevity()
+        self.color_uniqueness()
 
     def freshness_level(self) -> str:
         if self.freshness <= 0:
@@ -60,12 +64,12 @@ class HomeFlowers(Flowers):
         self.for_bouquets = for_bouquets
 
 
-chinese_aster = HomeFlowers(5, 25, 7, "red",
-                            10, "Chinese aster", True, True, 1)
-cetunia = HomeFlowers(10, 25, 17, "white",
-                      10, "Cetunia", True, True, 1)
-clematis = HomeFlowers(1, 34, 27, "red",
-                       10, "Clematis", True, True, 1)
+chinese_aster = HomeFlowers(4, 6, 7, "red",
+                            1, "Chinese aster", True, True, 1)
+cetunia = HomeFlowers(5, 5, 17, "white",
+                      2, "Cetunia", True, True, 1)
+clematis = HomeFlowers(6, 4, 27, "red",
+                       3, "Clematis", True, True, 1)
 
 
 class WildFlowers(Flowers):
@@ -77,12 +81,12 @@ class WildFlowers(Flowers):
         self.toxicity = toxicity
 
 
-goose_onion = WildFlowers(0, 25, 10, "purple",
-                          13, "Goose onion", True, False, 1)
-armeria = WildFlowers(2, 25, 20, "purple",
-                      11, "Armeria", True, False, 1)
-geranium = WildFlowers(6, 25, 5, "purple",
-                       10, "Geranium", True, False, 1)
+goose_onion = WildFlowers(1, 3, 10, "purple",
+                          4, "Goose onion", True, False, 1)
+armeria = WildFlowers(2, 2, 20, "purple",
+                      5, "Armeria", True, False, 1)
+geranium = WildFlowers(3, 1, 5, "purple",
+                       6, "Geranium", True, False, 1)
 
 
 class Bouquet:
@@ -99,6 +103,14 @@ class Bouquet:
     def avg_time_bucket(self):  # считаем средню прод. жизни букета по flower.long_live / но кол-во видов в букете
         return sum(flower.long_live for flower in self.flowers) / len(self.flowers)
 
+    """Синтаксис (общий для всех сортировок):
+    sorted(iterable, key=None, reverse=False)
+    iterable - последовательность, которую нужно отсортировать (например, список).
+    key (необязательный) - функция, которая принимает элемент и возвращает значение, по которому будет производиться 
+    сортировка. По умолчанию сортировка происходит по самим элементам.
+    reverse (необязательный) - если True, то сортировка будет в обратном порядке (по убыванию).
+    """
+
     def sort_bucket_color(self):  # сортировка букета по параметру Flovers.color = "цвет"
         # отбираем все цвета по каждой единице в букете
         color_list = sorted(flower.color for flower in self.flowers)
@@ -108,32 +120,39 @@ class Bouquet:
          not in unic_val]
         return unic_val
 
-    def sort_bucket_freshness(self):  # сортировка букета по параметру Flovers.freshness = "свежесть"
-        # отбираем все свежести по каждой единице в букете
-        freshness_list = sorted(flower.freshness for flower in self.flowers)
-        unic_val = []
-        # Добавляем уникальные значения из prise_list в список unic_val
-        [unic_val.append(Flowers.freshness) for Flowers.freshness in freshness_list if Flowers.freshness
-         not in unic_val]
-        return unic_val
+    def sort_bucket_freshness(self):
+        freshness_list = sorted(self.flowers, key=lambda flower: flower.freshness)  # т.е. для каждого flower
+        # вернуть его flower.freshness
+        flower_names = [flower.name for flower in freshness_list]
+        names = []  # создаем пустой список и добавляем в него уникальные имена, по порядку из flower_names
+        for name in flower_names:
+            if name not in names:
+                names.append(name)
+        return names
 
-    def sort_bucket_height(self):  # сортировка букета по параметру Flovers.height = "длинна стебля"
-        # отбираем все длины по каждой единице в букете
-        height_list = sorted(flower.height for flower in self.flowers)
-        unic_val = []
-        # Добавляем уникальные значения из height_list в список unic_val
-        [unic_val.append(Flowers.height) for Flowers.height in height_list if Flowers.height not in unic_val]
-        return unic_val  # возвращаем список уникальных значений
+    def sort_bucket_height(self):
+        sorted_fl_by_height = sorted(self.flowers, key=lambda flower: flower.height)  # т.е. для каждого flower
+        # вернуть его flower.height
+        flower_names = [flower.name for flower in sorted_fl_by_height]
+        names = []  # создаем пустой список и добавляем в него уникальные имена, по порядку из flower_names
+        for name in flower_names:
+            if name not in names:
+                names.append(name)
+        return names
 
-    def sort_bucket_price(self):  # сортировка букета по параметру Flovers.price = "цена"
-        # отбираем все цены по каждой единице в букете
-        prise_list = sorted(flower.price for flower in self.flowers)
-        unic_val = []
-        # Добавляем уникальные значения из prise_list в список unic_val
-        [unic_val.append(Flowers.price) for Flowers.price in prise_list if Flowers.price not in unic_val]
-        return unic_val  # возвращаем список уникальных значений
+    def sort_bucket_price(self):
+        sorted_flowers = sorted(self.flowers, key=lambda flower: flower.price)  # т.е. для каждого flower
+        # вернуть его flower.price
+        flower_names = [flower.name for flower in sorted_flowers]  # вывести имена отсортированных flower
+        # из sorted_flowers
+        names = []  # создаем пустой список и добавляем в него уникальные имена, по порядку из flower_names
+        for name in flower_names:
+            if name not in names:
+                names.append(name)
+        return names
 
-    # Поиск по параметрам
+        # Поиск по параметрам
+
     def search_flower_by_param2(self, param):
         matching_flowers = []
         for flower in self.flowers:
@@ -158,6 +177,8 @@ my_bouquet.add_flower(chinese_aster, 5)
 my_bouquet.add_flower(cetunia, 5)
 my_bouquet.add_flower(goose_onion, 5)
 my_bouquet.add_flower(armeria, 5)
+my_bouquet.add_flower(clematis, 5)
+my_bouquet.add_flower(geranium, 5)
 
 # Вычисляем стоимость букета
 total_price = my_bouquet.calculate_total_price()
