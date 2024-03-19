@@ -12,41 +12,45 @@ db = mysql.connect(  # вводим данные для подключения �
 cursor = db.cursor(dictionary=True)
 
 # 1
-req_ins_group = "INSERT INTO `groups` (title, start_date, end_date) values ('DKA_Group2', 'feb- 22', 'may- 28')"
-cursor.execute(req_ins_group)
+req_ins_group = "INSERT INTO `groups` (title, start_date, end_date) VALUES (%s, %s, %s)"
+cursor.execute(req_ins_group, ('DKA_Group2', 'feb- 22', 'may- 28'))  # здесь перечесляем values для %s, %s, %s
 db.commit()
+# Получение идентификатора последней вставленной строки
 groups_id = cursor.lastrowid
-cursor.execute(f"select * from `groups` where id = {groups_id}")
-cursor.fetchall()
+# Запрос на получение данных из таблицы `groups` по идентификатору
+cursor.execute("SELECT * FROM `groups` WHERE id = %s", (groups_id,))  # внимательно с запятыми и
+# скобками
+print(cursor.fetchall())
 
 # 2
-req_ins_student = f"INSERT INTO students (name, second_name, group_id) values ('Kirill458', 'Dechko458', {groups_id})"
-cursor.execute(req_ins_student)
+req_ins_student = "INSERT INTO students (name, second_name, group_id) values (%s, %s, %s)"
+cursor.execute(req_ins_student, ('Kirill458', 'Dechko458', groups_id))
 db.commit()
 student_id = cursor.lastrowid
-cursor.execute(f"SELECT * FROM students where id = {student_id}")
+cursor.execute("SELECT * FROM students where id = %s", (groups_id,))
 cursor.fetchall()
 
 # 3
 book_list = ['Book', 'Book1', 'Book2', 'Book3']
 book_id = []  # создаем пустой список куда запишем id добавленных книг
 for elem in book_list:
-    req_ins_books = f"INSERT INTO books (title, taken_by_student_id) VALUES ('{elem}', {student_id})"
-    cursor.execute(req_ins_books)
+    req_ins_books = "INSERT INTO books (title, taken_by_student_id) VALUES (%s, %s)"
+    cursor.execute(req_ins_books, (elem, student_id))
     db.commit()
     book_id.append(cursor.lastrowid)  # добавляем в список id созданной записи
-    cursor.execute(f"select * from books where id = {cursor.lastrowid}")
+    cursor.execute("select * from books where id = %s", (cursor.lastrowid,))
     print(cursor.fetchall())
 
 # 4
 sub_list = ['Subject_DKA1', 'Subject_DKA2']
 subj_id = []
 for elem in sub_list:
-    rec_int_subj = f"INSERT INTO subjets (title) VALUES ('{elem}')"
-    cursor.execute(rec_int_subj)
+    rec_int_subj = "INSERT INTO subjets (title) VALUES (%s)"
+    cursor.execute(rec_int_subj, (elem,))  # здесь перечесляем values для %s внимательно с запятыми и скобками
+    #  особенно где добавляем одно значение
     db.commit()
     subj_id.append(cursor.lastrowid)
-    cursor.execute(f"select * from subjets where id = {cursor.lastrowid}")
+    cursor.execute("select * from subjets where id = %s", (cursor.lastrowid,))
     print(cursor.fetchall())
 
 # 5
@@ -55,23 +59,23 @@ lesson_id = []
 for subj, lessons in zip(subj_id, [lessons_list[:2], lessons_list[2:]]):  # объединяем идентификаторы предметов с
     # соответствующими списками уроков
     for lesson in lessons:  # Добавляем уроки для каждого предмета
-        req_ins_lessons = f"INSERT INTO lessons (subject_id, title) VALUES ({subj}, '{lesson}')"
+        req_ins_lessons = "INSERT INTO lessons (subject_id, title) VALUES (%s, %s)"
         # Предполагаем, что cursor.execute и db.commit() - это функции для работы с базой данных
-        cursor.execute(req_ins_lessons)
+        cursor.execute(req_ins_lessons, (subj, lesson))
         db.commit()
         lesson_id.append(cursor.lastrowid)
-        cursor.execute(f"SELECT * FROM lessons WHERE id = {cursor.lastrowid}")
+        cursor.execute("SELECT * FROM lessons WHERE id = %s", (cursor.lastrowid,))
         print(cursor.fetchall())
 
 # 6
 marks_list = [100, 50, 24, 34]
 marks_id = []
 for lesson, mark in zip(lesson_id, marks_list):
-    req_ins_mark = f"INSERT INTO marks (lesson_id, student_id, value) VALUES ({lesson}, {student_id}, {mark})"
-    cursor.execute(req_ins_mark)
+    req_ins_mark = "INSERT INTO marks (lesson_id, student_id, value) VALUES (%s, %s, %s)"
+    cursor.execute(req_ins_mark, (lesson, student_id, mark))
     db.commit()
     marks_id.append(cursor.lastrowid)
-    cursor.execute(f"SELECT * FROM marks WHERE id = {cursor.lastrowid}")
+    cursor.execute("SELECT * FROM marks WHERE id = %s", (cursor.lastrowid,))
     print(cursor.fetchall())
 
 print(f"1. Group id: {groups_id}")
