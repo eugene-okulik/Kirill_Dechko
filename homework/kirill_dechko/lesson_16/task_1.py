@@ -9,7 +9,7 @@ dotenv.load_dotenv()  # если написать эту строку, то на
 db = mysql.connect(  # вводим данные для подключения к БД, для обращения к
     # данным сохраняем все в переменную
     user=os.getenv('DB_USER'),
-    passwd=os.getenv('DB_PASSW'),
+    passwd=os.getenv('DB_PASSWD'),
     host=os.getenv('DB_HOST'),
     port=os.getenv('DB_PORT'),
     database=os.getenv('DB_NAME')
@@ -31,9 +31,14 @@ cursor.execute("select students.name, students.second_name, `groups`.title as 'g
                "ORDER BY value")
 find_inf = cursor.fetchall()
 
-file_path = r'C:\Kirill_Dechko\homework\eugene_okulik\Lesson_16\hw_data\data.csv'
+bace_path = os.path.dirname(__file__)
+file_path = os.path.join(bace_path, 'data.csv')
+homework_path = os.path.dirname(os.path.dirname(bace_path))
+o_lesson_path = os.path.join(homework_path, 'eugene_okulik', 'Lesson_16', 'hw_data', 'data.csv')
+
+#file_path = r'C:\Kirill_Dechko\homework\eugene_okulik\Lesson_16\hw_data\data.csv'
 finded_elem = []  # создаем пустой список
-with open(file_path, newline='') as csv_file:  # берем данные из csv
+with open(o_lesson_path, newline='') as csv_file:  # берем данные из csv
     data_file = csv.reader(csv_file)  # записываем эти данные в переменную data_file
     for elem in data_file:  # читаем данные из переменной data_file
         finded_elem.append(elem)  # добавляем элементы в пустой список и получаем список списков
