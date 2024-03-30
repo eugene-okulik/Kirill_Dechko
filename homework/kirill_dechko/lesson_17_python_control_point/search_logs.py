@@ -68,7 +68,6 @@ else:
         else:
             return "File not found"
 
-
     def read_log_file():  # Функция чтения данных из файла, читаем логи по одной строке,
         # из файлов найденных функцией find_path_to_files (выше)
         try:
@@ -87,9 +86,7 @@ else:
         context = text[start_index:end_index]  # помещаем в переменную 150 символов до -слово- и 150 символов после
         return context
 
-
     find_rows_param = []  # список для заполнения данными удовлетворяющими поиску
-
 
     def is_search_params():  # Поиск строк по параметрам указанным пользователем (nsp, full_log, search_param)
         if args.search_param and args.nsp:  # если search_param и nsp в запросе и nsp корректен
@@ -109,7 +106,6 @@ else:
         else:  # и если нет args.full_log в запросе
             context = display_context_around_word(row, args.search_param, context_length=151)
             find_rows_param.append([context])
-
 
     # Цикл для обработки строк с датами и поиска нужных строк
     for row in read_log_file():
