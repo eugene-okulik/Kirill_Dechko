@@ -95,29 +95,29 @@ def read_log_file():  # Функция чтения данных из файла
 find_rows_param = []  # список для заполнения данными удовлетворяющими поиску
 
 
-def is_search_params():  # Поиск строк по параметрам указанным пользователем (nsp, full_log, search_param)
-    if args.search_param and args.nsp and args.full_log:  # если args.full_log в запросе
-        if args.search_param in row and args.nsp not in row:  # args.search_param нет в строке
-            find_rows_param.append([row])  # добавить всю строку в find_rows_param
-    elif args.search_param and args.nsp:
+def is_search_params():  # Поиск строк по параметрам указанным пользователем (1-nsp, 2-full_log, 3-search_param)
+    if args.search_param and args.nsp and args.full_log:  # если 3 праметра в запросе
+        if args.search_param in row and args.nsp not in row:
+            find_rows_param.append([row])
+    elif args.search_param and args.nsp:  # если 1 и 2 праметр в запросе
         if args.search_param in row and args.nsp not in row:
             find_rows_param.append([row[:301]])
-    elif args.search_param and args.full_log:
+    elif args.search_param and args.full_log:  # если 1 и 3 праметр в запросе
         if args.search_param in row:
             find_rows_param.append([row])
-    elif args.search_param:
+    elif args.search_param:    # если 1 праметр в запросе
         if args.search_param in row:
             context = display_context_around_word(row, args.search_param, context_length=151)
             find_rows_param.append([context])  # выводим 150 символов до и после args.search_param
-    elif args.nsp and args.full_log:  # args.search_param нет в строке
+    elif args.nsp and args.full_log:  # если 2 и 3 праметр в запросе
         if args.nsp not in row:
-            find_rows_param.append([row])  # добавить 300 символов строки в find_rows_param
-    elif args.nsp:
+            find_rows_param.append([row])
+    elif args.nsp:  # если 2 в запросе
         if args.nsp not in row:
             find_rows_param.append([row[:301]])
-    elif args.full_log:
+    elif args.full_log:  # если 3 в запросе
         find_rows_param.append([row])  # добавить всю строку в find_rows_param
-    else:  # если args.full_log нет в запросе
+    else:  # если 1 2 3 нет в запросе
         find_rows_param.append([row[:301]])
 
 
