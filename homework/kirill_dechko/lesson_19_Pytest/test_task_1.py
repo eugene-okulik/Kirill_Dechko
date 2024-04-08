@@ -30,56 +30,47 @@ def add_object(name):
     response = requests.post(  # Ответ равен...
         'https://api.restful-api.dev/objects',
         json=body).json()
-    yield response['id']  # для работы постусловия используем yield
-    print("Deleting the post")  # вывести сообщение
-    requests.delete(f'https://api.restful-api.dev/objects/{add_object}')  # вывести сообщение
-
-
-@pytest.fixture()  # Указываем фикстуру... она будет выполниться в выбратых теста, как предусловие
-def add_object_fix():
-    body = {
-        "name": "Apple MacBook Pro DKA",
-        "data": {
-            "year": 1982,
-            "price": 2805.99,
-            "CPU model": "Intel Core i9DKA",
-            "Hard disk size": "1 TB DKA"
-        }
-    }
-    response = requests.post(  # Ответ равен...
-        'https://api.restful-api.dev/objects',
-        json=body).json()
-    yield response['id']  # для работы постусловия используем yield
-    print("Deleting the post")  # вывести сообщение
-    requests.delete(f'https://api.restful-api.dev/objects/{add_object}')  # вывести сообщение
+    return response['id']  # для работы постусловия используем yield
 
 
 @pytest.mark.parametrize("name", ['DKA_1', 'DKA_2', 'DKA_3', 'DKA_4'])
-def test_change_name(name, hello_funk, bef_aft_funk):
-    add_object(name)
-    print(f"Create object {name}")
+def test_create_obj(name, hello_funk, bef_aft_funk):
+    obj_id = add_object(name)
+    assert obj_id is not None, f"Object {name} wasn't created"  # проверяем что после создания есть id
+    requests.delete(f'https://api.restful-api.dev/objects/{obj_id}')  # удаляем объект по id
+    response = requests.get(f'https://api.restful-api.dev/objects/{obj_id}')  # запрашиваем удаленный id
+    assert response.status_code == 404, f"Object {name} wasn't deleted"
 
 
-def test_change_object_put(add_object_fix, bef_aft_funk):
+@pytest.mark.critical
+def test_change_object_put(bef_aft_funk):
+    obj_id = add_object("Apple MacBook")
     new_name = "Apple MacBook Pro 16DKA_PUT"
     body = {
         "name": f"{new_name}"
     }
     response = requests.put(
-        f'https://api.restful-api.dev/objects/{add_object_fix}',
+        f'https://api.restful-api.dev/objects/{obj_id}',
         json=body).json()
     print(response)
     assert response['name'] == f"{new_name}", "Incorrect object name"
+    requests.delete(f'https://api.restful-api.dev/objects/{obj_id}')
+    response = requests.get(f'https://api.restful-api.dev/objects/{obj_id}')  # запрашиваем удаленный id
+    assert response.status_code == 404, f"Object {new_name} wasn't deleted"
 
 
-@pytest.mark.medium  # пометил как medium test (пример вызова pytest -v -m medium)
-def test_change_object_patch(add_object_fix, bef_aft_funk):
-    new_name = "Apple MacBook Pro 16DKA_Patch"
+@pytest.mark.medium
+def test_change_object_patch(bef_aft_funk):
+    obj_id = add_object("Apple MacBook Pro 16")
+    new_name = "Apple MacBook Pro 16DKA_PATCH"
     body = {
         "name": f"{new_name}",
     }
     response = requests.patch(
-        f'https://api.restful-api.dev/objects/{add_object_fix}',
+        f'https://api.restful-api.dev/objects/{obj_id}',
         json=body).json()
     print(response)
     assert response['name'] == f"{new_name}", "Incorrect object name"
+    requests.delete(f'https://api.restful-api.dev/objects/{obj_id}')
+    response = requests.get(f'https://api.restful-api.dev/objects/{obj_id}')  # запрашиваем удаленный id
+    assert response.status_code == 404, f"Object {new_name} wasn't deleted"
