@@ -53,7 +53,7 @@ def test_create_obj(name, hello_funk, bef_aft_funk):
     response = requests.post(  # Ответ равен...
         'https://api.restful-api.dev/objects',
         json=body).json()  # вызывает функцию add_object и подставляет в нее name
-    assert response is not None, f"Object {name} wasn't created"  # проверяем что после создания есть id
+    assert response['name'] == name, f"Object {name} wasn't created"  # проверяем что после создания есть id
     requests.delete(f'https://api.restful-api.dev/objects/{response}')  # удаляем объект по id
     response = requests.get(f'https://api.restful-api.dev/objects/{response}')  # запрашиваем удаленный id
     assert response.status_code == 404, f"Object {name} wasn't deleted"  # проверяем что пришла ошибка
