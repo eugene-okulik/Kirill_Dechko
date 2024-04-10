@@ -83,3 +83,10 @@ def test_change_object_patch(create_del_new_obj,
         f'https://api.restful-api.dev/objects/{create_del_new_obj}',
         json=body).json()
     assert response['name'] == f"{new_name}", "Incorrect object name"  # проверяем измененное имя объекта
+
+
+@pytest.mark.critical
+def test_del_obj(create_del_new_obj, bef_aft_funk):
+    requests.delete(f'https://api.restful-api.dev/objects/{create_del_new_obj}')  # удаляем объект по id
+    response = requests.get(f'https://api.restful-api.dev/objects/{create_del_new_obj}')  # запрашиваем удаленный id
+    assert response.status_code == 404, f"Object with id {create_del_new_obj} wasn't deleted"
