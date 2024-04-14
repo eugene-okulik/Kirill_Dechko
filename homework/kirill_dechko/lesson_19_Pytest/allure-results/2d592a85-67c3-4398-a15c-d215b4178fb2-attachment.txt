@@ -1,0 +1,4 @@
+[93m
+before test[0m
+[93m
+after test[0m

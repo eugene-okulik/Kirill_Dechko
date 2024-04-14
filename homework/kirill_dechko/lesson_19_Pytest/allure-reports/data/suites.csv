@@ -1,0 +1,8 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"broken","Sun Apr 14 11:09:33 MSK 2024","Sun Apr 14 11:09:33 MSK 2024","0","","test_task_1","","","","Удаляем объект",""
+"broken","Sun Apr 14 11:09:32 MSK 2024","Sun Apr 14 11:09:32 MSK 2024","0","","test_task_1","","","","Изменяем объект",""
+"broken","Sun Apr 14 11:09:28 MSK 2024","Sun Apr 14 11:09:29 MSK 2024","764","","test_task_1","","","","Создаем объект",""
+"broken","Sun Apr 14 11:09:30 MSK 2024","Sun Apr 14 11:09:31 MSK 2024","1185","","test_task_1","","","","Создаем объект",""
+"broken","Sun Apr 14 11:09:30 MSK 2024","Sun Apr 14 11:09:30 MSK 2024","667","","test_task_1","","","","Создаем объект",""
+"broken","Sun Apr 14 11:09:31 MSK 2024","Sun Apr 14 11:09:31 MSK 2024","0","","test_task_1","","","","Изменяем объект",""
+"broken","Sun Apr 14 11:09:29 MSK 2024","Sun Apr 14 11:09:30 MSK 2024","667","","test_task_1","","","","Создаем объект",""
