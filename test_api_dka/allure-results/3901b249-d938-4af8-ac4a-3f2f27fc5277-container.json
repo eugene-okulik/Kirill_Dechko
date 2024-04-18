@@ -1,1 +1,0 @@
-{"uuid": "afb58cc9-ac97-4be7-8eb1-9162577ddfdf", "children": ["b08bc50c-c8c3-442a-949e-8e92e5f7410d"], "befores": [{"name": "del_obj_by_id_endpoint", "status": "passed", "start": 1713416181238, "stop": 1713416181238}], "start": 1713416181238, "stop": 1713416184273}

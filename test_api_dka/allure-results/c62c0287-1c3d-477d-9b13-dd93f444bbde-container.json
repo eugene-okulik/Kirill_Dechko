@@ -1,1 +1,0 @@
-{"uuid": "fe1c5f68-5593-4fc8-9715-6bab9b8deaa1", "children": ["7a365aac-e2a7-4fe3-b267-92cc8e68aef6"], "befores": [{"name": "create_new_obj_endpoint", "status": "passed", "start": 1713425712839, "stop": 1713425712839}], "start": 1713425712839, "stop": 1713425718446}
