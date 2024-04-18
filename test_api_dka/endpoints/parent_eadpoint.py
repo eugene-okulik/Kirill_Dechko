@@ -19,4 +19,3 @@ class ParentEndpoint:
         self.response = requests.get(
             f"{self.url}/{self.obj_json['id']}")
         assert self.response.status_code == 404, f"Object with id {self.obj_json['id']} wasn't deleted"
-
