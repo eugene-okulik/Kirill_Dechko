@@ -22,8 +22,8 @@ test_body = {"name": 'DKA_2.2.1'}
 @pytest.mark.parametrize("data", TEST_DATA)
 def test_create_obj(data, create_new_obj_endpoint, del_obj_by_id_endpoint):
     create_new_obj_endpoint.create_new_obj(data)
-    create_new_obj_endpoint.check_obj_name(data['name'])
-    create_new_obj_endpoint.del_obj()
+    # create_new_obj_endpoint.check_obj_name(data['name'])
+    del_obj_by_id_endpoint.del_obj(create_new_obj_endpoint.check_obj_name(data['name']))
 
 
 @allure.feature("Перезаписать объект")
@@ -32,9 +32,9 @@ def test_create_obj(data, create_new_obj_endpoint, del_obj_by_id_endpoint):
 @allure.testcase("https://okulik.by/kabinet/group?groupId=52", "Полное изменение объекта (тест кейс)")
 @allure.issue("https://okulik.by/kabinet/group?groupId=52", "Полное изменение объекта User story-11")
 @pytest.mark.critical  # отметили тест как критический
-def test_change_object_put(create_obj, change_obj_endpoint_put, del_obj_by_id_endpoint, create_new_obj_endpoint):
+def test_change_object_put(create_obj, change_obj_endpoint_put):
     change_obj_endpoint_put.change_obj_put(test_body, create_obj)
-    del_obj_by_id_endpoint.del_obj(change_obj_endpoint_put.check_obj_name(test_body['name']))
+    change_obj_endpoint_put.check_obj_name(test_body['name'])
 
 
 @allure.feature("Обновление объекта")
@@ -43,9 +43,9 @@ def test_change_object_put(create_obj, change_obj_endpoint_put, del_obj_by_id_en
 @allure.testcase("https://okulik.by/kabinet/group?groupId=52", "Частичное изменение объекта (тест кейс)")
 @allure.issue("https://okulik.by/kabinet/group?groupId=52", "Частичное изменение объекта User story-12")
 @pytest.mark.medium  # отметили тест как medium
-def test_change_object_patch(create_obj, change_obj_endpoint_patch, del_obj_by_id_endpoint):
+def test_change_object_patch(create_obj, change_obj_endpoint_patch):
     change_obj_endpoint_patch.change_obj_patch(TEST_DATA[3], create_obj)
-    del_obj_by_id_endpoint.del_obj(change_obj_endpoint_patch.check_obj_name(TEST_DATA[3]['name']))
+    change_obj_endpoint_patch.check_obj_name(TEST_DATA[3]['name'])
 
 
 @allure.feature("Удаление объекта")

@@ -29,7 +29,7 @@ def del_obj_by_id_endpoint():
 
 
 @pytest.fixture()
-def create_obj(create_new_obj_endpoint):
+def create_obj(create_new_obj_endpoint, del_obj_by_id_endpoint):
     body = {
         "name": "TEST_DKA_NEW_OBJ_NAME",
         "data": {
@@ -40,5 +40,6 @@ def create_obj(create_new_obj_endpoint):
         }
     }
     create_new_obj_endpoint.create_new_obj(body)
-    create_new_obj_endpoint.check_obj_name("TEST_DKA_NEW_OBJ_NAME")
-    return create_new_obj_endpoint.obj_id
+    create_new_obj_endpoint.check_obj_name(body["name"])
+    yield create_new_obj_endpoint.obj_id
+    del_obj_by_id_endpoint.del_obj(create_new_obj_endpoint.obj_id)
