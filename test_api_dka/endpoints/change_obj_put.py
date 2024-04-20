@@ -14,4 +14,5 @@ class ChangeObjectPut(ParentEndpoint):
             json=body
         )
         self.obj_json = self.response.json()
+        assert self.response.status_code == 200, f"Object with id {obj_id} wasn't created"
         return self.obj_json['id']

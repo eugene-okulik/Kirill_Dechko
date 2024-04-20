@@ -16,4 +16,5 @@ class CreateObject(ParentEndpoint):
         )
         self.obj_json = self.response.json()
         self.obj_id = self.obj_json['id']
+        assert self.response.status_code == 200, f"Object with id {body['name']} wasn't created"
         return self.obj_id  # возвращаем id, если нужен return

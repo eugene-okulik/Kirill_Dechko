@@ -21,8 +21,9 @@ test_body = {"name": 'DKA_2.2.1'}
 @allure.issue("https://okulik.by/kabinet/group?groupId=52", "Создание новых объектов User story-10")
 @pytest.mark.parametrize("data", TEST_DATA)
 def test_create_obj(data, create_new_obj_endpoint, del_obj_by_id_endpoint):
-    create_new_obj_endpoint.create_new_obj(data)
-    del_obj_by_id_endpoint.del_obj(create_new_obj_endpoint.check_obj_name(data['name']))
+    obj_id = create_new_obj_endpoint.create_new_obj(data)
+    create_new_obj_endpoint.check_obj_name(data['name'])
+    del_obj_by_id_endpoint.del_obj(obj_id)
 
 
 @allure.feature("Перезаписать объект")
