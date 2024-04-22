@@ -40,4 +40,3 @@ class PerformanceAPP(HttpUser):
         self.client.delete(
             f'{post_eandpoint}/{self.obj_id}'
         )
-        
