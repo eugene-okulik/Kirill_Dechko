@@ -251,28 +251,3 @@ def test_submit_button(driver):
     city_input.send_keys(Keys.ENTER)
     submit_button = driver.find_element(By.XPATH, "//*[@Id='submit']")
     submit_button.click()
-    # student_name = WebDriverWait(driver, 10).until(
-    #     EC.visibility_of_element_located((By.XPATH, f"//tr[td='{fake_f_name} {fake_l_name}']"))
-    #     )
-    # assert student_name.is_displayed()
-    # student_email = WebDriverWait(driver, 10).until(
-    #     EC.visibility_of_element_located((By.XPATH, f"//tr[td='{fake_email}']"))
-    # )
-    # # student_email = driver.find_element(By.XPATH, f"//tr[td='{fake_email}']")
-    # assert student_email.is_displayed()
-    # # gender = WebDriverWait(driver, 10).until(
-    # #     EC.visibility_of_element_located((By.XPATH, f"//tr[td='{random_gender}']"))
-    # # )
-    # # # gender = driver.find_element(By.XPATH, f"//tr[td='{random_gender}']")
-    # # assert gender.is_displayed()
-    # mob_num  = WebDriverWait(driver, 10).until(
-    #     EC.visibility_of_element_located((By.XPATH, f"//tr[td='{mob_num}']"))
-    # )
-    # # mob_num = driver.find_element(By.XPATH, f"//tr[td='{mob_num}']")
-    # assert mob_num.is_displayed()
-    # current_date = WebDriverWait(driver, 10).until(
-    #     EC.visibility_of_element_located((By.XPATH, f"//tr[td='{day} {month},{year_my}']"))
-    # )
-    # # current_date = driver.find_element(By.XPATH, f"//tr[td='{day} {month},{year_my}']")
-    # assert current_date.is_displayed()
-    time.sleep(10)
